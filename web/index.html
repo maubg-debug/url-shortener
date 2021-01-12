@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>API</title>
+    <link rel="stylesheet" href="./css/main.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+  </head>
+  <body>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    box-sizing: border-box;
+}
+
+main {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    background: #3586ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+}
+
+header .title {
+    margin-bottom: 20px;
+}
+
+/* header .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+} */
+
+header .input {
+    width: 30%;
+    height: 50px;
+    background: #fff;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 43px auto auto;
+    position: relative;
+
+    font-weight: 900;
+    font-family: 'Poppins', sans-serif;
+}
+
+header .input input {
+    background: none;
+    border: none;
+    outline: none;
+    width: 540px;
+    font-size: 20px;
+}
+
+header .input i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    color: #999;
+    width: 100%;
+    transition: .2s;
+}
+
+header .input i:hover {
+    animation: heart .5s linear;
+}
+
+@keyframes heart {
+    0% {
+        transform: scale(1);
+    } 50% {
+        transform: scale(1.1);
+    } 100% {
+        transform: scale(1);
+    }
+}
+
+header .input input:focus {
+    border: none;
+    outline: none;
+}
+
+header .input .button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header .input .button .btn {
+    background: #3586ff;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+
+    color: #fff;
+    font-size: 20px;
+
+    width: 93%;
+    cursor: pointer;
+}
+
+header .input .button .btn:focus {
+    border: none;
+    outline: none;
+}
+
+.intro {
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.intro .wrapper {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.intro .wrapper .cards {
+    /* background: #000; */
+    width: 100%;
+    height: 40vh;
+    /* margin-top: 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.intro .wrapper .cards .wrapper {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: relative;
+}
+
+.intro .wrapper .cards .extra,
+.intro .wrapper .cards .card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro .wrapper .cards .card .wrapper__card {
+    background: #fff;   
+    width: 315px;
+    height: 310px;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    transition: .1s;
+    position: relative;
+}
+
+.intro .wrapper .cards .card:nth-child(2) .wrapper__card {
+    background-image: linear-gradient(to right top, #496ca1, #3869b5, #2765c9, #215fda, #2e56e9);
+    color: #fff;
+}
+
+.intro .wrapper .cards .card .wrapper__card:hover {
+    transform: translateY(-10px);
+}
+
+.intro .wrapper .cards .card .wrapper__card .title {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+.intro .wrapper .cards .card .wrapper__card .title h5 {
+    margin-right: 50px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.intro .wrapper .cards .card .wrapper__card .title i {
+    border-radius: 50%;
+    background: #ddd;
+    /* color: #999; */
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 20px;
+}
+
+.intro .wrapper .cards .card:nth-child(2) .wrapper__card .title i {
+    background: #1c4495;
+}
+
+.intro .wrapper .cards .card .wrapper__card .desc {
+    padding: 10px 35px;
+    font-size: 21px;
+}
+
+.intro .wrapper .cards .extra .wrapper__extra {
+    width: 100%;
+    height: 300px;
+}
+
+.intro .wrapper .cards .extra .wrapper__extra i {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.intro .wrapper .cards .extra .wrapper__extra .title {
+    margin-top: 20px;
+}
+
+.intro .wrapper .cards .extra .wrapper__extra .desc {
+    font-size: 18px;
+    margin-top: 9px;
+}
+    </style>
+
+    <main>
+      <header>
+
+        <h1 class="title">Acorta tu URL</h1>
+        <form method="POST" action="/" class="input">
+          <i class="fas fa-link"></i>
+          <input placeholder="Pon una url muy largaaaaaaaaaaa" type="url" name="url" required>
+          <div class="button"><button type="submit" class="btn">Acortar</button></div>
+        </form>
+
+        <!-- <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path fill="#fff" fill-opacity="1" d="M0,192L80,197.3C160,203,320,213,480,234.7C640,256,800,288,960,282.7C1120,277,1280,235,1360,213.3L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg> -->
+      </header>
+
+      <section class="intro">
+        <div class="wrapper">
+          <h1 class="pg__title">Haz los links mas cortos para una vision mejor</h1>
+          <p class="pg__desc">Con este URL shorter podras usar los links mas eficaz mente da igual si eres un streamer, un profesor. El limite es solo tullo</p>
+          <div class="cards">
+            <div class="wrapper">
+              <div class="card">
+                <div class="wrapper__card">
+                  <div class="title">
+                    <i class="fas fa-hat-wizard"></i>
+                    <h5>¿Para que sirve?</h5>
+                  </div>
+                  <div class="desc">
+                    Este url shortener hara un redirect depende de el codigo que ayas metido para un uso mas facil de los links largos.
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="wrapper__card">
+                  <div class="title">
+                    <i class="fab fa-gripfire"></i>
+                    <h5>¡Es super rapido!</h5>
+                  </div>
+                  <div class="desc">
+                    Es rapido el proceso en el que simplemente poner un link en la barra y se te creara una url y la puedes compartir.
+                  </div>
+                </div>
+              </div>
+              <div class="extra">
+                <div class="wrapper__extra">
+                  <i class="fas fa-paper-plane"></i>
+                  <div class="title"><h2>Compartelo con tus amigos</h2></div>
+                  <div class="desc">
+                    El link es valido para todo el mundo ¿Què  significa? que puedes poner el link corto en tus videos, clases, trabajo, ¡En todo y en todas las plataformas y apps! 
+                  </div>
+                </div>
+              </div>          
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
