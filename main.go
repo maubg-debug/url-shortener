@@ -1,22 +1,45 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 )
 
+type Respuesta struct {
+	status bool   `json:"estado"`
+	codigo string `json:"codigo"`
+}
+
 func fetch(url string) {
 
 	urlN := "https://maubot.maucode.com/api/redir/crear?url=" + url
 
-	req, err := http.NewRequest(http.MethodGet, urlN, nil)
+	req, err := http.NewRequest("GET", urlN, nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("NewRequest: ", err)
+		return
 	}
 
-	return req
+	client := &http.Client{}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal("Do: ", err)
+		return
+	}
+
+	defer resp.Body.Close()
+
+	var record Respuesta
+
+	if err := json.NewDecoder(resp.Body).Decode(&record); err != nil {
+		log.Println(err)
+	}
+
+	return record.codigo
 }
 
 func main() {
@@ -32,9 +55,9 @@ func main() {
 
 		data := r.FormValue("url")
 
-		fData := fetch(data)
+		codigo := fetch(data)
 
-		fmt.Printf(fData)
+		fmt.Printf(codigo)
 	})
 
 	// http.HandleFunc("/", index)
