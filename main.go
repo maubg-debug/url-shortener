@@ -4,9 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
+
+type Respuesta struct {
+	codigo string `json:"codigo"`
+	estado int    `json:"estado"`
+}
 
 func main() {
 
@@ -19,47 +26,46 @@ func main() {
 			return
 		}
 
-		type Respuesta struct {
-			codigo string `json:"codigo"`
-			estado int    `json:"estado"`
-		}
-
 		data := r.FormValue("url")
 
-		urlN := "https://maubot.maucode.com/api/redir/crear?url=" + data
+		url := "https://maubot.maucode.com/api/redir/crear?url=" + data
 
-		req, err := http.NewRequest("GET", urlN, nil)
+		spaceClient := http.Client{
+			Timeout: time.Second * 2, // Timeout after 2 seconds
+		}
+
+		req, err := http.NewRequest(http.MethodGet, url, nil)
 		if err != nil {
-			log.Fatal("NewRequest: ", err)
-			return
+			log.Fatal(err)
 		}
 
-		client := &http.Client{}
-
-		resp, err := client.Do(req)
-		if err != nil {
-			log.Fatal("Do: ", err)
-			return
+		res, getErr := spaceClient.Do(req)
+		if getErr != nil {
+			log.Fatal(getErr)
 		}
 
-		defer resp.Body.Close()
-
-		var record Respuesta
-
-		if err := json.NewDecoder(resp.Body).Decode(&record); err != nil {
-			log.Println(err)
-			return
+		if res.Body != nil {
+			defer res.Body.Close()
 		}
 
-		codigo := ""
-
-		if record.estado == 200 {
-			codigo = "https://maubot.maucode.com/api/redir?codigo=" + record.codigo
-		} else {
-			codigo = ""
+		body, readErr := ioutil.ReadAll(res.Body)
+		if readErr != nil {
+			log.Fatal(readErr)
 		}
 
-		fmt.Printf(codigo)
+		fmt.Println(body)
+
+		people1 := Respuesta{}
+		jsonErr := json.Unmarshal(body, &people1)
+		if jsonErr != nil {
+			log.Fatal(jsonErr)
+		}
+
+		fmt.Println(people1.codigo)
+
+		// codigof := "https://maubot.maucode.com/api/redir?codigo=" + record.codigo
+
+		// fmt.Println(codigof)
 	})
 
 	// http.HandleFunc("/", index)
