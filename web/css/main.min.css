@@ -9,6 +9,8 @@
 
 body {
     box-sizing: border-box;
+
+    zoom: 80%;
 }
 
 main {
