@@ -1,19 +1,12 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 )
-
-type Respuesta struct {
-	codigo string `json:"codigo"`
-	estado int    `json:"estado"`
-}
 
 func main() {
 
@@ -30,45 +23,27 @@ func main() {
 
 		url := "https://maubot.maucode.com/api/redir/crear?url=" + data
 
-		spaceClient := http.Client{
-			Timeout: time.Second * 2, // Timeout after 2 seconds
-		}
+		response, err := http.Get(url)
 
-		req, err := http.NewRequest(http.MethodGet, url, nil)
 		if err != nil {
 			log.Fatal(err)
+		} else {
+			data, _ := ioutil.ReadAll(response.Body)
+			fmt.Println(string(data))
+			// jsonValue, _ := json.Marshal(data)
+
+			k := make([]string, len(data))
+			i := 0
+			for s := range data {
+				k[i] = fmt.Sprint(s)
+				i++
+			}
+			fmt.Println(k)
 		}
-
-		res, getErr := spaceClient.Do(req)
-		if getErr != nil {
-			log.Fatal(getErr)
-		}
-
-		if res.Body != nil {
-			defer res.Body.Close()
-		}
-
-		body, readErr := ioutil.ReadAll(res.Body)
-		if readErr != nil {
-			log.Fatal(readErr)
-		}
-
-		fmt.Println(body)
-
-		people1 := Respuesta{}
-		jsonErr := json.Unmarshal(body, &people1)
-		if jsonErr != nil {
-			log.Fatal(jsonErr)
-		}
-
-		fmt.Println(people1.codigo)
 
 		// codigof := "https://maubot.maucode.com/api/redir?codigo=" + record.codigo
-
-		// fmt.Println(codigof)
 	})
 
-	// http.HandleFunc("/", index)
-	fmt.Printf("Escuchando en el puero :8000\n")
-	http.ListenAndServe(":8000", nil)
+	fmt.Printf("Escuchando en el puero :5000\n")
+	http.ListenAndServe(":5000", nil)
 }
